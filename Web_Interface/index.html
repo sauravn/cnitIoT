@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link href="css/style.css" rel="stylesheet">
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+
+  <script src="http://d3js.org/d3.v3.min.js"></script>
+  <script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+  <script src="js/jquery.fullPage.js" type="text/javascript"></script>
+
+  <script type="text/javascript">
+	$(document).ready(function() {
+		$('#fullpage').fullpage({
+			anchors: ["intro-page", "app-page", "directory-page"],
+			loopBottom: true,
+		});
+	});  
+  </script>
+
+
+  <title>IoT EcoSystem - Private Cloud</title>
+  <link rel="shortcut icon" href="image/icon.png" />
+</head>
+
+<body>
+  <!-- Navigation -->
+  <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <img src="image/icon.png" class="navbar-icon"/>
+        <a class="navbar-brand" href="#intro-page">IoT Private Cloud</a>
+      </div>
+      <div class="collapse navbar-collapse" id="myNavbar">
+        <ul class="nav navbar-nav">
+          <li><a href="#app-page">Agg Ecosystem</a></li>
+          <li><a href="#app-page">Home Automation</a></li>
+        </ul>
+        <div class="nav-bar-current-info">
+          <img id="weather-icon">
+          <p id="current-weather"></p>
+          <p id="current-date"></p>
+        </div>
+      </div><!-- /.navbar-collapse -->
+    </div><!-- /.container -->
+  </nav>
+
+
+  <div id="fullpage">
+    <!-- Intro section -->
+	<div class="section">
+      <div class="intro-section">
+	    <div class="container">
+          <div class="row">
+            <div class="col-lg-12">
+               <h1>Analytics for the Agg Ecosystem and the Home Automation</h1> <br> <br>
+              <!--<h3>Don't know where to find fresher and cheaper veggies?<br>
+                This app will tell you grocery stores near you and more!</h3> -->
+              <a class="btn btn-primary btn-lg" href="#app-page">Watch Analytics</a>
+            </div>
+          </div>
+	   	</div>
+	  </div>
+	</div>
+
+    <!-- The app section -->
+    <div class="section">
+	  <div class="about-section">
+    	<div class="container">
+          <!-- map layer 
+   	      <div class="map-layer">
+    		<div class="form-control">
+        	  <label class="checkbox-inline">
+        		<input type="checkbox" id="layer-traffic">Traffic
+        	  </label>
+    		</div>
+          </div> -->
+          <!-- map 
+		  <div id="map"></div>-->
+		  <!-- side menu -->
+		  <div class="side-menu">
+			<!-- side menu tabs 
+			<div id="tabs">
+			  <ul class="nav nav-tabs nav-justified" id="customize-tag">
+			    <li class="active"><a data-toggle="tab" href="#weather"><strong>Current Weather</strong></a></li>
+		        <li><a data-toggle="tab" href="#basic"><strong>Basic Information</strong></a></li>
+		        <li><a data-toggle="tab" href="#comparison"><strong>Compare Stores</strong></a></li>
+		        <li id="tab-veggies"><a data-toggle="tab" href="#veggie-chart"><strong>Seasonal Veggies</strong></a></li>
+		       	<li id="tab-directory"><a data-toggle="tab" href="#directory"><strong>Store Directory</strong></a></li>
+			  </ul>
+			</div>-->
+			  
+			<!-- side menu tab contents-->
+			<div class="tab-content">
+
+			  <!--tab content for weather-->
+			  <div id="weather" class="tab-pane fade in active">
+			  	<div id="menu-cover">
+				  	<div class="temp-daily">
+				  	  <img src="image/temp.jpg" id="img-temp">
+				  	  <h1 id="temp-day"></h1>
+				  	  <h1 id="temp-night"></h1>
+				  	  <h4 id="temp-day-sm"></h4>
+				  	  <h4 id="temp-night-sm"></h4>
+				  	  <div class="two-column">
+					  	  <p id="wind-speed"></p>
+					  	  <h4 id="wind-speed-sm"></h4>
+					  	  <div id="power-gauge1"></div>
+					  	  <p id="humid-text"></p>
+					  	  <h4 id="humid-text-sm"></h4>
+					  	  <div id="power-gauge2"></div>
+					  </div>
+					</div>
+				</div>
+			  </div>
+			 	
+			  <!-- tab content for basic -->
+			  <div id="basic" class="tab-pane fade">
+				<div id="menu-cover">
+				  <img id="store-image">
+				  <h4 id="store-name">Click on markers to see store info</h4>
+				    <div class="basic-info">
+				      <p><a id="store-website"></a></p>
+				      <p id="store-phone"></p>
+			      	  <p id="open-hour-today"></p>
+			      	  <p id="store-rating"></p>
+			      	  <p><br></p>
+			      	  <button class="btn btn-primary btn-md" type="button" id="get-direction">Get Direction</button>
+					</div>
+					<div class="aster-chart">
+					  <p><strong>Store Evaluation Score</strong></p>
+					  <div id="aster-chart"></div>
+					</div>						
+				</div>
+			  </div>
+				
+			  <!-- tab content for comparison-->
+			  <div id="comparison" class="tab-pane fade">
+				<div id="menu-cover">
+				  <h4>Compare up to 3 recent clicked stores</h4>
+				  <p>(Click on markers to add stores)</p>
+				  <div class="bar-graph">
+				    <button class="btn btn-warning btn-md" type="button" id="bar-reset">Reset Compare</button>
+				  	<form>
+				   	  <label><input type="radio" name="mode" id="bar-grouped" value="grouped"> Grouped</label>
+  					  <label><input type="radio" name="mode" id="bar-stacked" value="stacked"> Stacked</label>
+  					</form>				  
+					<div id="bar-graph-compare"></div>		
+				  </div><!--bar graph-->
+				</div><!--menu cover-->
+			  </div><!--comparison-->
+
+		      <!-- tab content for veggie-chart -->
+		      <div id="veggie-chart" class="tab-pane fade">
+		      	<div id="menu-cover">
+		      	  <div id=veggie-text-align>
+		    		<h4>In season Veggies of this month</h4>
+		    		<div class=multi>
+		    		  <p id="seasonal-veggies"></p>
+		    		</div>
+		    	  </div>
+		      	</div>
+		      </div><!--veggies chart-->
+
+			  <!--tab content for directory-->
+			  <div id="directory" class="tab-pane fade">
+			  	<div id="menu-cover">
+			  	  <h4>Stores near you</h4>          
+				  <table class="table table-hover" id="store-directory">
+					<thead>
+					  <tr>
+				    	<th>Label</th>
+				    	<th>Name</th>
+				    	<th>Website</th>
+				      </tr>
+				    </thead>
+				    <tbody id="add-store"></tbody>
+				  </table>
+			  	</div>
+			  </div>
+
+			</div><!-- tab-contents -->
+		  </div><!-- side-menu-->
+		</div><!-- /.container -->
+	  </div><!--about section-->
+	</div><!--section-->
+  </div><!--fullpage-->
+
+  <script src="js/bootstrap.min.js"></script>
+  <script src="js/jquery.easing.min.js" type="text/javascript"></script>
+
+  <script src="js/map.js" type="text/javascript"></script>
+  <script src="js/veggies.js" type="text/javascript"></script>		
+  <script src="js/datasheet.js" type="text/javascript"></script>
+  <script src="js/decisiontree.js" type="text/javascript"></script>
+  <script src="js/main.js" type="text/javascript"></script>
+  <script src="js/AsterChart.js" type="text/javascript"></script>
+  <script src="js/barGraph.js" type="text/javascript"></script>
+  <script src="js/Gauge.js" type="text/javascript"></script>
+
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAq2LC9akN1uvqZ8xKaGoihBxK6PEUyU8Q&libraries=places&callback=initMap" async defer></script>
+
+</body>
+</html>	    
